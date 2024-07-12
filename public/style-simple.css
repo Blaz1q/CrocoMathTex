@@ -1,0 +1,49 @@
+@import url("style.css");
+html,body{
+    margin:0;
+}
+.logoanim::before{
+    content: '#';
+    color: rgb(40, 60, 109);
+    width: .1em;
+    opacity: 0%;
+    animation: fade_out 2s infinite;
+}
+.edit:hover::before{
+    content: '+';
+}
+#przyciski{
+    display: none;
+}
+select option{
+    background-color: rgb(51 65 85);
+}
+pre:hover{
+    color: rgba(255, 255, 255, 0.855);
+}
+pre.currently_selected:hover{
+    color:white;
+}
+.currently_selected{
+    color:white;
+}
+.currently_selected.different_than_orginal{
+    color:rgb(32, 214, 99);
+}
+.different_than_orginal{
+    color: rgb(22 163 74);
+}
+.currently_selected::before{
+    content: "+ ";
+}
+@keyframes fade_out {
+    0%{
+        opacity: 100%;
+    }
+    50%{
+        opacity: 0%;
+    }
+    100%{
+        opacity: 100%;
+    }
+}

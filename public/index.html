@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrocoMathTex2.0</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-simple.css">
+    <script defer src="script.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+</head>
+<body class="bg-slate-900 text-slate-500 antialiased" onload="fetch_json();setUnloadTrigger()" onclick="fetch_json()">
+    <nav class="flex flex-row max-w-7xl m-auto">
+        <h1 class="logoanim text-white font-medium text-3xl">CrocoMathTex2.0</h1>
+        <button onclick="toggle_przyciski()" class=" bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold">przyciski</button>
+    </nav>
+    <div class="flex flex-row flex-1">
+        <div class="flex max-w-7xl m-auto" style="align-items: center;justify-content: center;">
+            <div id="display_math" style="align-items: center;justify-content: center;" class="overflow-hidden text-white flex rounded-md w-screen h-96 m-2 bg-slate-700/50  border border-slate-500/30">
+        </div>
+        <div id="main_div" class="w-screen hidden">
+
+        </div>
+        <div id="DOKONCZ" class="shouldhide hidden rounded-md bg-slate-700/50  w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
+            <h1 class="text-white font-semibold m-2">DOKOŃCZ</h1>
+            <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
+            <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div><label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                <option>-</option>
+            </select> kategoria</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button onclick="addPolecenie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button onclick="addInfo()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button onclick="addTresc()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button onclick="addWyjasnienie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            
+        </div>
+        <div id="PF" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
+            <h1 class="text-white font-semibold m-2">PF</h1>
+            <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
+            <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md" onchange="show_div()">
+                <option>-</option>
+            </select> kategoria</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+        </div>
+        <div id="OTWARTE" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
+            <h1 class="text-white font-semibold m-2">OTWARTE</h1>
+            <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
+            <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
+            <label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                <option>-</option>
+            </select> kategoria</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie-Mini</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="wyjasnieniemini rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+        </div>
+        </div>
+        <div id="DOPASUJ_NTO1" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">nto1</div>
+        <div id="DOPASUJ_1TO1" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">1to1</div>
+        <div id="DOPASUJ_TABELA" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">taebla</div>
+        <div id="ZLOZONE" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
+            <h1 class="text-white font-semibold m-2">ZŁOŻONE</h1>
+            <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> id</label>
+            <label class="block m-2"><input type="number" class="podpkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> liczba podpunktów</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Podpunkty</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="podpunkty rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+        </div>
+        
+        <div id="przyciski" class="flex flex-col">
+            <button class="function-button flex-1 bg-violet-500 hover:bg-violet-600 active:bg-violet-700  pl-4 pr-4 p-2 text-white font-semibold">\text{ super text }</button>
+            <button class="function-button flex-1 bg-violet-500 hover:bg-violet-600 active:bg-violet-700  pl-4 pr-4 p-2 text-white font-semibold">super</button>
+        </div>
+    </div>
+    
+    </div>
+    <div class="max-w-7xl m-auto">
+        <label class="block m-2"><input type="checkbox" id="autosave"> autosave</label>
+        <label class="block m-2"><input type="checkbox" id="prettyjson" onclick="toggle_compact()"> compactJSON</label>
+        <select id="typ_zadania" class="cursor-pointer m-2 bg-slate-700/50  border border-slate-500/30 p-2 rounded-md" onchange="show_div()">
+            <option>DOKONCZ</option>
+            <option>PF</option>
+            <option>OTWARTE</option>
+            <option>DOPASUJ_NTO1</option>
+            <option>DOPASUJ_TABELA</option>
+            <option>DOPASUJ_1TO1</option>
+            <option>ZLOZONE</option>
+        </select>
+        <button onclick="copy_to_clip()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold">kopiuj do schowka</button>
+        <button id="resetbtn" onclick="reset_to_default()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 ml-2 text-white font-semibold disabled:text-slate-600 disabled:hover:bg-slate-700/50 cursor-no-drop" disabled>cofnij zmiany</button>
+        <button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">dodaj zadanie</button>
+        <button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">usuń zadanie</button>
+        <button onclick="save_changes()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">zapisz zmiany</button>
+        
+        <div id="output" class="rounded-md bg-slate-700/50  border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2"></div>
+    </div>
+    
+</body>
+</html>
