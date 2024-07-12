@@ -10,7 +10,7 @@ html,body{
     animation: fade_out 2s infinite;
 }
 .custom_bg{
-    background-image: url("/src/croco_bg.png");
+    background-image: url("./src/croco_bg.png");
     background-size: cover;
 }
 .typewriter{
