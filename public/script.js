@@ -75,31 +75,39 @@ let listaPytan = [];
 let listaPytanChanged = [];
 function generuj_przyciski2D(element,dane){
   element.innerHTML="";
+  if(dane){
   for(var i=0;i<dane.length;i++){
     element.innerHTML+='<input onclick="setLatexId(this)" onkeyup="setLatexId(this)" type="text" class="block rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden w-full m-auto mt-2 md-2 focus:bg-slate-500/40 focus:text-white  focus:border-slate-500/30" value="'+dane[i]+'">'
   }
 }
+}
 function generuj_przyciski2D(element,dane,id){
   element.innerHTML="";
+  if(dane){
   for(var i=0;i<dane.length;i++){
     element.innerHTML+='<input onclick="setLatexId(this)" onkeyup="setLatexId(this);autosave()" type="text" class="'+id+' block rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden w-full m-auto mt-2 md-2 focus:bg-slate-500/40 focus:text-white  focus:border-slate-500/30" value="'+dane[i]+'">'
   }
 }
+}
 function generuj_przyciski3D(element,dane){
   element.innerHTML="";
+  if(dane){
   for(var i=0;i<dane.length;i++){
     for(var j=0;j<dane[i].length;j++){
     element.innerHTML+='<input onclick="setLatexId(this)" onkeyup="setLatexId(this)" type="text" class="block rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden w-full m-auto mt-2 md-2 focus:bg-slate-500/40 focus:text-white focus:border-slate-500/30" value="'+dane[i][j]+'">'
   }
 }
 }
+}
 function generuj_przyciski3D(element,dane,id){
   element.innerHTML="";
+  if(dane){
   for(var i=0;i<dane.length;i++){
     for(var j=0;j<dane[i].length;j++){
     element.innerHTML+='<input onclick="setLatexId(this)" onkeyup="setLatexId(this);autosave()" type="text" class="'+id+i+' block rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden w-full m-auto mt-2 md-2 focus:bg-slate-500/40 focus:text-white focus:border-slate-500/30" value="'+dane[i][j]+'">'
   }
   if(dane.length-1!=0)element.innerHTML+="<hr>";
+  }
 }
 function getDepth(dane){
   return dane.length;
@@ -121,41 +129,66 @@ function autosave(){
 }
 function save_changes(){
   let id = selected_global;
-  if(listaPytan[id].Typ==="DOKONCZ"){
+  if(listaPytan[id].typ==="DOKONCZ"){
       typ_zadania = DOKONCZ;
-      listaPytanChanged[id].Id = typ_zadania.getElementsByClassName("id")[0].value;
-      listaPytanChanged[id].Pkt = typ_zadania.getElementsByClassName("pkt")[0].value;
-      listaPytanChanged[id].PoprawnaOdp = get2DValues("poprawna_generated");
-      listaPytanChanged[id].Polecenie = get2DValues("polecenia_generated");
-      listaPytanChanged[id].Info = get2DValues("info_generated");
-      listaPytanChanged[id].Tresc = get2DValues("tresc_generated");
-      listaPytanChanged[id].Wyjasnienie = get2DValues("wyjasnienie_generated");
+      listaPytanChanged[id].id = typ_zadania.getElementsByClassName("id")[0].value;
+      listaPytanChanged[id].pkt = typ_zadania.getElementsByClassName("pkt")[0].value;
+      listaPytanChanged[id].poprawna = get2DValues("poprawna_generated");
+      listaPytanChanged[id].polecenie = get2DValues("polecenia_generated");
+      listaPytanChanged[id].info = get2DValues("info_generated");
+      listaPytanChanged[id].tresc = get2DValues("tresc_generated");
+      listaPytanChanged[id].wyjasnienie = get2DValues("wyjasnienie_generated");
   }
+  updateCode();
   check_if_diff();
 }
+function addZadanie(){
+  console.log('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length-1)+' }');
+  listaPytanChanged.push(new PytaniaNewFormat(JSON.parse('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length-1)+' }')));
+  let code =  document.getElementById("output");
+  code.innerHTML+="<a href='#display_math' class='code_object' onclick='selectpytanie("+(listaPytanChanged.length-1)+")'>nowe zadanie</a>";
+}
 function reset_to_default(){
-  listaPytanChanged[selected_global]=JSON.parse(JSON.stringify(listaPytan[selected_global]));
+  if(listaPytan[selected_global]){
+      listaPytanChanged[selected_global]=JSON.parse(JSON.stringify(listaPytan[selected_global]));
+  }
+  else{
+    listaPytanChanged[selected_global] = new PytaniaNewFormat();
+  }
   document.getElementById("resetbtn").disabled = true;
   document.getElementById("resetbtn").style.cursor = "no-drop";
   selectpytanie(selected_global);
+  updateCode();
 }
 function addInfo(){
-  listaPytanChanged[selected_global].Info.push("");
+  if(!listaPytanChanged[selected_global].info){
+    listaPytanChanged[selected_global].info = new Array();
+  }
+  listaPytanChanged[selected_global].info.push("");
   selectpytanie(selected_global);
   autosave();
 }
 function addTresc(){
-  listaPytanChanged[selected_global].Tresc.push("");
+  if(!listaPytanChanged[selected_global].tresc){
+    listaPytanChanged[selected_global].tresc = new Array();
+  }
+  listaPytanChanged[selected_global].tresc.push("");
   selectpytanie(selected_global);
   autosave();
 }
 function addPolecenie(){
-  listaPytanChanged[selected_global].Polecenie.push("");
+  if(!listaPytanChanged[selected_global].polecenie){
+    listaPytanChanged[selected_global].polecenie = new Array();
+  }
+  listaPytanChanged[selected_global].polecenie.push("");
   selectpytanie(selected_global);
   autosave();
 }
 function addWyjasnienie(){
-  listaPytanChanged[selected_global].Wyjasnienie.push("");
+  if(!listaPytanChanged[selected_global].wyjasnienie){
+    listaPytanChanged[selected_global].wyjasnienie = new Array();
+  }
+  listaPytanChanged[selected_global].wyjasnienie.push("");
   selectpytanie(selected_global);
   autosave();
 }
@@ -168,45 +201,55 @@ function get2DValues(classname){
   return arr;
 }
 function read_podpunkt(id_podpunktu){
-  if(listaPytan[selected_global].Typ==="ZLOZONE"){
+  if(listaPytan[selected_global].typ==="ZLOZONE"){
     mainblock.innerHTML="";
-    document.getElementById("typ_zadania").value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Typ;
-    console.log(listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Typ);
-    switch(listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Typ){
+    document.getElementById("typ_zadania").value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].typ;
+    console.log(listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].typ);
+    switch(listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].typ){
       case "DOKONCZ":{
         mainblock.append(DOKONCZ);
         typ_zadania = DOKONCZ;
-        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].Id;
-        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Pkt;
-        let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].PoprawnaOdp,"poprawna_generated");
-        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Polecenie,"polecenia_generated");
-        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Info,"info_generated");
-        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Tresc,"tresc_generated");
-        let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Odpowiedzi,"odpowiedzi_generated");
-        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Wyjasnienie,"wyjasnienie_generated");
+        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
+        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].pkt;
+        let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].poprawna,"poprawna_generated");
+        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].polecenie,"polecenia_generated");
+        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].info,"info_generated");
+        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].tresc,"tresc_generated");
+        let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].odp,"odpowiedzi_generated");
+        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].wyjasnienie,"wyjasnienie_generated");
       }break;
       case "PF":{
         mainblock.append(PF);
         typ_zadania = PF;
-        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].Id;
-        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Pkt;
-        let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].PoprawnaOdp);
-        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Polecenie);
-        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Info);
-        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Tresc);
-        let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Odpowiedzi);
-        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Wyjasnienie);
+        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
+        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].pkt;
+        let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].poprawna);
+        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].polecenie);
+        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].info);
+        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].tresc);
+        let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].odp);
+        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].wyjasnienie);
       }break;
       case "OTWARTE":{
         mainblock.append(OTWARTE);
         typ_zadania = OTWARTE;
-        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].Id;
-        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Pkt;
-        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Polecenie);
-        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Info);
-        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Tresc);
-        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].Wyjasnienie);
-        let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].PoprawnaOdpMini);
+        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
+        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].pkt;
+        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].polecenie);
+        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].info);
+        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].tresc);
+        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].wyjasnienie);
+        let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].poprawna);
+      }break;
+      case "DOPASUJ_NTO1":{
+        mainblock.append(DOPASUJ_NTO1);
+        typ_zadania = DOPASUJ_NTO1;
+        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
+        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].pkt;
+        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].polecenie);
+        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].info);
+        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].tresc);
+        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].wyjasnienie);
       }break;
     }
   }
@@ -218,54 +261,77 @@ function selectpytanie(id){
   console.log(listaPytanChanged[id]);
   update_code_object(id);
   mainblock.innerHTML="";
-  document.getElementById("typ_zadania").value = listaPytanChanged[id].Typ;
+  document.getElementById("typ_zadania").value = listaPytanChanged[id].typ;
   let typ_zadania;
-  switch(listaPytanChanged[id].Typ){
+  switch(listaPytanChanged[id].typ){
     case "DOKONCZ":{
       mainblock.append(DOKONCZ);
       typ_zadania = DOKONCZ;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].Id;
-      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].Pkt;
-      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[id].PoprawnaOdp,"poprawna_generated");
-      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].Polecenie,"polecenia_generated");
-      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].Info,"info_generated");
-      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].Tresc,"tresc_generated");
-      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].Odpowiedzi,"odpowiedzi_generated");
-      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].Wyjasnienie,"wyjasnienie_generated");
+      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].pkt;
+      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[id].poprawna,"poprawna_generated");
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].polecenie,"polecenia_generated");
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].info,"info_generated");
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].tresc,"tresc_generated");
+      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].odp,"odpowiedzi_generated");
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].wyjasnienie,"wyjasnienie_generated");
     }break;
     case "PF":{
       mainblock.append(PF);
       typ_zadania = PF;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].Id;
-      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].Pkt;
-      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[id].PoprawnaOdp);
-      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].Polecenie);
-      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].Info);
-      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].Tresc);
+      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].pkt;
+      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[id].poprawna);
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].polecenie);
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].info);
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].tresc);
       if(!listaPytanChanged[id].hasInfo) info.classList.add("hidden");
-      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].Odpowiedzi);
-      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].Wyjasnienie);
+      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].odp);
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].wyjasnienie);
     }break;
     case "OTWARTE":{
       mainblock.append(OTWARTE);
       typ_zadania = OTWARTE;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].Id;
-      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].Pkt;
-      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].Polecenie);
-      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].Info);
-      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].Tresc);
-      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].Wyjasnienie);
-      let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,listaPytanChanged[id].PoprawnaOdpMini);
+      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].pkt;
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].polecenie);
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].info);
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].tresc);
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].wyjasnienie);
+      let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,listaPytanChanged[id].poprawna);
     }break;
+    case "DOPASUJ_NTO1":{
+      mainblock.append(DOPASUJ_NTO1);
+      typ_zadania = DOPASUJ_NTO1;
+      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].pkt;
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].polecenie);
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].info);
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].tresc);
+      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].odp);
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].wyjasnienie);
+    }break;
+    case "DOPASUJ_1TO1":{
+      mainblock.append(DOPASUJ_1TO1);
+      typ_zadania = DOPASUJ_1TO1;
+      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].pkt;
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].polecenie);
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].info);
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].tresc);
+      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].odp);
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].wyjasnienie);
+    
+    }
     case "ZLOZONE":{
       mainblock.append(ZLOZONE);
       typ_zadania = ZLOZONE;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].Id;
+      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].id;
       typ_zadania.getElementsByClassName("podpkt")[0].value = listaPytanChanged[id].Podpunkty;
       let podpunkty = document.getElementsByClassName("podpunkty")[0];
       podpunkty.innerHTML="";
       for(var i=0;i<listaPytanChanged[id].Podpunkty;i++){
-        podpunkty.innerHTML+="<button onclick='read_podpunkt("+i+")' class='bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 m-2 text-white font-semibold ml-2 block'>Podpunkt ["+i+"] ["+listaPytanChanged[id].ListaZlozone[i].Typ+"]</button>";
+        podpunkty.innerHTML+="<button onclick='read_podpunkt("+i+")' class='bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 m-2 text-white font-semibold ml-2 block'>Podpunkt ["+i+"] ["+listaPytanChanged[id].ListaZlozone[i].typ+"]</button>";
       }
       }break;
   }
@@ -273,14 +339,14 @@ function selectpytanie(id){
 }
 function copy_to_clip(){
   if(isFetch){
-    let finalString;
-    for(var i=0;i<listaPytan.length;i++){
-      finalString+=JSON.stringify(jsondata.API[i])
+    let finalString="API[{";
+    for(var i=0;i<listaPytanChanged.length;i++){
+      finalString+=JSON.stringify(listaPytanChanged[i]);
     }
+    finalString+="}]";
     navigator.clipboard.writeText(finalString);
   }
-}
-isFetch = false;
+}isFetch = false;
 function sanitize(string) {
   const map = {
       '&': '&amp;',
@@ -298,18 +364,28 @@ function toggle_compact(){
     let checkbox = document.getElementById("prettyjson");
     let code =  document.getElementById("output");
     if(checkbox.checked){
-      for(var i=0;i<listaPytan.length;i++){
+      for(var i=0;i<listaPytanChanged.length;i++){
         code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(jsondata.API[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(jsondata.API[i]))+"</pre></a>";
       }
     }else{
-      for(var i=0;i<listaPytan.length;i++){
+      for(var i=0;i<listaPytanChanged.length;i++){
         code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(jsondata.API[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(jsondata.API[i],undefined, 2))+"</pre></a>";
       }
     }
     if(selected_global) code.children[selected_global].classList.add("currently_selected");
   }
 }
-
+function updateCode(){
+  let code =  document.getElementById("output");
+  let checkbox = document.getElementById("prettyjson");
+  let i = selected_global;
+  if(code.children.length<selected_global) code.innerHTML+="<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(listaPytanChanged[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(listaPytanChanged[i],undefined, 2))+"</pre></a>";
+  if(checkbox.checked){
+      code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object currently_selected' title='"+sanitize(JSON.stringify(listaPytanChanged[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(listaPytanChanged[i]))+"</pre></a>";
+    }else{
+      code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object currently_selected' title='"+sanitize(JSON.stringify(listaPytanChanged[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(listaPytanChanged[i],undefined, 2))+"</pre></a>";
+    }
+}
 let selected_global;
 function update_code_object(id){
   let selected = document.getElementsByClassName("currently_selected");
@@ -340,48 +416,42 @@ function fetch_json(){
   }
 }
 class PytaniaNewFormat {
+      id;
+      pkt;
+      typ;
+      kat;
+      katID;
+      info;
+      zdj;
+      polecenie;
+      tresc;
+      odp;
+      odp_zdj;
+      poprawna;
+      wyjasnienie;
+      Tabela;
+      Podpunkty;
+      translatable_info;
     constructor(pytanie) {
-      this.Id = 0;
-      this.Pkt = 0;
-      this.Typ = "";
-      this.Kategoria = "";
-      this.KatID = 0;
-      this.Info = [];
-      this.Zdj = "";
-      this.Polecenie = [];
-      this.Tresc = [];
-      this.Odpowiedzi = [];
-      this.OdpowiedziZdj = [];
-      this.PoprawnaOdp = [];
-      this.PoprawnaOdpMini = [];
-      this.OdpowiedziUzytkownika = [];
-      this.Wyjasnienie = [];
-      this.Tabela = [];
-      this.Podpunkty = 0;
-      this.hasInfo = false;
-      this.hasTresc = false;
-      this.hasPolecenie = false;
-      this.hasZdj = false;
-      this.hasOdpowiedzi = false;
-      this.translatable = null;
+      
   
       try {
-        this.Typ = pytanie.typ;
-        this.Id = pytanie.id;
+        this.typ = pytanie.typ;
+        this.id = pytanie.id;
   
-        if (this.Typ === "DOKONCZ") {
+        if (this.typ === "DOKONCZ") {
           this.initializeDokoncz(pytanie);
-        } else if (this.Typ === "PF") {
+        } else if (this.typ === "PF") {
           this.initializePF(pytanie);
-        } else if (this.Typ === "OTWARTE") {
+        } else if (this.typ === "OTWARTE") {
           this.initializeOtwarte(pytanie);
-        } else if (this.Typ === "DOPASUJ_NTON") {
+        } else if (this.typ === "DOPASUJ_NTON") {
           this.initializeDopasujNTON(pytanie);
-        } else if (this.Typ === "DOPASUJ_NTO1" || this.Typ === "DOPASUJ_1TO1") {
+        } else if (this.typ === "DOPASUJ_NTO1" || this.typ === "DOPASUJ_1TO1") {
           this.initializeDopasujNTO1(pytanie);
-        } else if (this.Typ === "DOPASUJ_TABELA") {
+        } else if (this.typ === "DOPASUJ_TABELA") {
           this.initializeDopasujTabela(pytanie);
-        } else if (this.Typ === "ZLOZONE") {
+        } else if (this.typ === "ZLOZONE") {
           this.initializeZlozone(pytanie);
         }
       } catch (error) {
@@ -390,102 +460,91 @@ class PytaniaNewFormat {
     }
   
     initializeDokoncz(pytanie) {
-      this.Pkt = pytanie.pkt;
-      this.Kategoria = pytanie.kat;
-      this.KatID = pytanie.katID;
-      this.PoprawnaOdp = this.initI1D(pytanie.poprawna);
-      this.OdpowiedziUzytkownika = new Array(this.PoprawnaOdp.length).fill(-1);
-      this.Wyjasnienie = this.initS1D(pytanie.wyjasnienie);
-      this.Polecenie = this.initS1D(pytanie.polecenie);
-      this.hasPolecenie = true;
-      if (pytanie.tresc) { this.Tresc = this.initS1D(pytanie.tresc); this.hasTresc = true; }
-      if (pytanie.odp) { this.Odpowiedzi = this.initS2D(pytanie.odp); this.hasOdpowiedzi = true; }
-      if (pytanie.odp_zdj) this.OdpowiedziZdj = this.initS1D(pytanie.odp_zdj);
-      if (pytanie.info) { this.Info = this.initS1D(pytanie.info); this.hasInfo = true; }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj; this.hasZdj = true; }
-      if (pytanie.translatable_info) { this.translatable = pytanie.translatable_info; }
+      if (pytanie.pkt) this.pkt = pytanie.pkt;
+      if (pytanie.kat) this.kat = pytanie.kat;
+      if (pytanie.katID) this.katID = pytanie.katID;
+      if (pytanie.poprawna) this.poprawna = this.initI1D(pytanie.poprawna);
+      if (pytanie.wyjasnienie) this.wyjasnienie = this.initS1D(pytanie.wyjasnienie);
+      if (pytanie.polecenie) this.polecenie = this.initS1D(pytanie.polecenie);
+      if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);  }
+      if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp);  }
+      if (pytanie.odp_zdj) this.odp_zdj = this.initS1D(pytanie.odp_zdj);
+      if (pytanie.info) { this.info = this.initS1D(pytanie.info); }
+      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.translatable_info) { this.translatable_info = pytanie.translatable_info; }
     }
   
     initializePF(pytanie) {
-      this.Pkt = pytanie.pkt;
-      this.Kategoria = pytanie.kat;
-      this.KatID = pytanie.katID;
-      this.PoprawnaOdp = this.initI1D(pytanie.poprawna);
-      this.Wyjasnienie = this.initS1D(pytanie.wyjasnienie);
-      this.Polecenie = this.initS1D(pytanie.polecenie);
-      this.hasPolecenie = true;
-      this.OdpowiedziUzytkownika = new Array(this.PoprawnaOdp.length).fill(-1);
-      if (pytanie.tresc) { this.Tresc = this.initS1D(pytanie.tresc); this.hasTresc = true; }
-      if (pytanie.info) { this.Info = this.initS1D(pytanie.info); this.hasInfo = true; }
-      if (pytanie.odp) { this.Odpowiedzi = this.initS2D(pytanie.odp); this.hasOdpowiedzi = true; }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj; this.hasZdj = true; }
+      this.pkt = pytanie.pkt;
+      this.kat = pytanie.kat;
+      this.katID = pytanie.katID;
+      this.poprawna = this.initI1D(pytanie.poprawna);
+      this.wyjasnienie = this.initS1D(pytanie.wyjasnienie);
+      this.polecenie = this.initS1D(pytanie.polecenie);
+      if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);  }
+      if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
+      if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp);  }
+      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
     }
   
     initializeOtwarte(pytanie) {
-      this.Pkt = pytanie.pkt;
-      this.Kategoria = pytanie.kat;
-      this.KatID = pytanie.katID;
-      this.OdpowiedziUzytkownika = new Array(1).fill(-1);
-      if (pytanie.tresc) { this.Tresc = this.initS1D(pytanie.tresc); this.hasTresc = true; }
-      this.PoprawnaOdpMini = this.initS1D(pytanie.poprawna);
-      this.Wyjasnienie = this.initS1D(pytanie.wyjasnienie);
-      this.Polecenie = this.initS1D(pytanie.polecenie);
-      this.hasPolecenie = true;
-      if (pytanie.info) { this.Info = this.initS1D(pytanie.info); this.hasInfo = true; }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj; this.hasZdj = true; }
+      this.pkt = pytanie.pkt;
+      this.kat = pytanie.kat;
+      this.katID = pytanie.katID;
+      if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);  }
+      this.poprawna = this.initS1D(pytanie.poprawna);
+      this.wyjasnienie = this.initS1D(pytanie.wyjasnienie);
+      this.polecenie = this.initS1D(pytanie.polecenie);
+      if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
+      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
     }
   
     initializeDopasujNTON(pytanie) {
-      this.Pkt = pytanie.pkt;
-      this.Kategoria = pytanie.kat;
-      this.KatID = pytanie.katID;
-      this.PoprawnaOdp = this.initI1D(pytanie.poprawna);
-      this.Wyjasnienie = this.initS1D(pytanie.wyjasnienie);
-      this.Polecenie = this.initS1D(pytanie.polecenie);
-      this.hasPolecenie = true;
-      this.OdpowiedziUzytkownika = new Array(this.PoprawnaOdp.length).fill(-1);
-      if (pytanie.tresc) { this.Tresc = this.initS1D(pytanie.tresc); this.hasTresc = true; }
-      if (pytanie.info) { this.Info = this.initS1D(pytanie.info); this.hasInfo = true; }
-      if (pytanie.odp) { this.Odpowiedzi = this.initS2D(pytanie.odp); this.hasOdpowiedzi = true; }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj; this.hasZdj = true; }
+      this.pkt = pytanie.pkt;
+      this.kat = pytanie.kat;
+      this.katID = pytanie.katID;
+      this.poprawna = this.initI1D(pytanie.poprawna);
+      this.wyjasnienie = this.initS1D(pytanie.wyjasnienie);
+      this.polecenie = this.initS1D(pytanie.polecenie);
+      if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);  }
+      if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
+      if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp); }
+      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
     }
   
     initializeDopasujNTO1(pytanie) {
-      this.Pkt = pytanie.pkt;
-      this.Kategoria = pytanie.kat;
-      this.KatID = pytanie.katID;
-      this.PoprawnaOdp = this.initI1D(pytanie.poprawna);
-      this.Wyjasnienie = this.initS1D(pytanie.wyjasnienie);
-      this.Polecenie = this.initS1D(pytanie.polecenie);
-      this.hasPolecenie = true;
-      this.OdpowiedziUzytkownika = new Array(this.PoprawnaOdp.length).fill(-1);
-      if (pytanie.tresc) { this.Tresc = this.initS1D(pytanie.tresc); this.hasTresc = true; }
-      if (pytanie.info) { this.Info = this.initS1D(pytanie.info); this.hasInfo = true; }
-      if (pytanie.odp) { this.Odpowiedzi = this.initS2D(pytanie.odp); this.hasOdpowiedzi = true; }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj; this.hasZdj = true; }
+      this.pkt = pytanie.pkt;
+      this.kat = pytanie.kat;
+      this.katID = pytanie.katID;
+      this.poprawna = this.initI1D(pytanie.poprawna);
+      this.wyjasnienie = this.initS1D(pytanie.wyjasnienie);
+      this.polecenie = this.initS1D(pytanie.polecenie);
+      if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc); }
+      if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
+      if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp);  }
+      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
     }
   
     initializeDopasujTabela(pytanie) {
-      this.Pkt = pytanie.pkt;
-      this.Kategoria = pytanie.kat;
-      this.KatID = pytanie.katID;
-      this.PoprawnaOdp = this.initI1D(pytanie.poprawna);
-      this.Wyjasnienie = this.initS1D(pytanie.wyjasnienie);
-      this.Polecenie = this.initS1D(pytanie.polecenie);
-      this.hasPolecenie = true;
+      this.pkt = pytanie.pkt;
+      this.kat = pytanie.kat;
+      this.katID = pytanie.katID;
+      this.poprawna = this.initI1D(pytanie.poprawna);
+      this.wyjasnienie = this.initS1D(pytanie.wyjasnienie);
+      this.polecenie = this.initS1D(pytanie.polecenie);
+
       this.Tabela = this.initS3D(pytanie.tabela);
-      this.OdpowiedziUzytkownika = new Array(this.PoprawnaOdp.length).fill(-1);
-      if (pytanie.tresc) { this.Tresc = this.initS1D(pytanie.tresc); this.hasTresc = true; }
-      if (pytanie.info) { this.Info = this.initS1D(pytanie.info); this.hasInfo = true; }
-      if (pytanie.odp) { this.Odpowiedzi = this.initS2D(pytanie.odp); this.hasOdpowiedzi = true; }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj; this.hasZdj = true; }
+      if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);}
+      if (pytanie.info) { this.info = this.initS1D(pytanie.info); }
+      if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp);  }
+      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
     }
   
     initializeZlozone(pytanie) {
       this.Podpunkty = pytanie.ilosc_podpunktow;
-      if (pytanie.info) { this.Info = this.initS1D(pytanie.info); this.hasInfo = true; }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj; this.hasZdj = true; }
-      if (pytanie.tresc) { this.Tresc = this.initS1D(pytanie.tresc); this.hasTresc = true; }
+      if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
+      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);  }
   
       this.ListaZlozone = [];
       for (let i = 0; i < this.Podpunkty; i++) {

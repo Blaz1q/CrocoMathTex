@@ -33,7 +33,11 @@
             </select> kategoria</label>
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button onclick="addPolecenie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
-            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            <div class="polecenia rounded-lg bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button onclick="addInfo()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
@@ -45,6 +49,10 @@
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
@@ -67,6 +75,10 @@
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
@@ -97,6 +109,10 @@
             <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
@@ -114,8 +130,81 @@
             </div>
         </div>
         </div>
-        <div id="DOPASUJ_NTO1" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">nto1</div>
-        <div id="DOPASUJ_1TO1" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">1to1</div>
+        <div id="DOPASUJ_NTO1" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
+            <h1 class="text-white font-semibold m-2">NTO1</h1>
+            <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
+            <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            
+            <label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                <option>-</option>
+            </select> kategoria</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+        </div>
+        <div id="DOPASUJ_1TO1" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
+            <h1 class="text-white font-semibold m-2">1TO1</h1>
+            <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
+            <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            
+            <label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                <option>-</option>
+            </select> kategoria</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+        
+        </div>
         <div id="DOPASUJ_TABELA" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">taebla</div>
         <div id="ZLOZONE" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
             <h1 class="text-white font-semibold m-2">ZŁOŻONE</h1>
@@ -137,7 +226,7 @@
     <div class="max-w-7xl m-auto">
         <label class="block m-2"><input type="checkbox" id="autosave"> autosave</label>
         <label class="block m-2"><input type="checkbox" id="prettyjson" onclick="toggle_compact()" checked> compactJSON</label>
-        <select id="typ_zadania" class="cursor-pointer m-2 bg-slate-700/50  border border-slate-500/30 p-2 rounded-md" onchange="show_div()">
+        <select id="typ_zadania" class="cursor-pointer m-2 bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
             <option>DOKONCZ</option>
             <option>PF</option>
             <option>OTWARTE</option>
@@ -148,7 +237,7 @@
         </select>
         <button onclick="copy_to_clip()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold">kopiuj do schowka</button>
         <button id="resetbtn" onclick="reset_to_default()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 ml-2 text-white font-semibold disabled:text-slate-600 disabled:hover:bg-slate-700/50 cursor-no-drop" disabled>cofnij zmiany</button>
-        <button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">dodaj zadanie</button>
+        <button onclick="addZadanie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">dodaj zadanie</button>
         <button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">usuń zadanie</button>
         <button onclick="save_changes()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">zapisz zmiany</button>
         
