@@ -106,12 +106,43 @@ function generuj_przyciski3D(element,dane,id){
     for(var j=0;j<dane[i].length;j++){
     element.innerHTML+='<input onclick="setLatexId(this)" onkeyup="setLatexId(this);autosave()" type="text" class="'+id+i+' block rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden w-full m-auto mt-2 md-2 focus:bg-slate-500/40 focus:text-white focus:border-slate-500/30" value="'+dane[i][j]+'">'
   }
-  if(dane.length-1!=0)element.innerHTML+="<hr>";
+  element.innerHTML+='<button onclick="addOdp('+i+')" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button>';
+  if(dane.length-1!=0)
+    if(dane.length-1!=i)
+    element.innerHTML+="<hr>";
   }
+}
+}
+function generuj_odp(element,dane,id){
+  element.innerHTML="";
+  if(dane){
+  for(var i=0;i<dane.length;i++){
+    for(var j=0;j<dane[i].length;j++){
+    element.innerHTML+='<input onclick="setLatexId(this)" onkeyup="setLatexId(this);autosave()" type="text" class="'+id+i+' block rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden w-full m-auto mt-2 md-2 focus:bg-slate-500/40 focus:text-white focus:border-slate-500/30" value="'+dane[i][j]+'">'
+  }
+  element.innerHTML+='<button onclick="addOdp('+i+')" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button>';
+  if(dane.length-1!=0)
+    if(dane.length-1!=i)
+    element.innerHTML+="<hr>";
+  }
+}
+}
+function generuj_odp_zdj(element,dane,id){
+  element.innerHTML="";
+  if(dane){
+  for(var i=0;i<dane.length;i++){
+    for(var j=0;j<dane[i].length;j++){
+    element.innerHTML+='<input onclick="setLatexId(this)" onkeyup="setLatexId(this);autosave()" type="text" class="'+id+i+' block rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden w-full m-auto mt-2 md-2 focus:bg-slate-500/40 focus:text-white focus:border-slate-500/30" value="'+dane[i][j]+'">'
+  }
+  element.innerHTML+='<button onclick="addOdpZdj('+i+')" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button>';
+  if(dane.length-1!=0)
+    if(dane.length-1!=i)
+    element.innerHTML+="<hr>";
+  }
+}
 }
 function getDepth(dane){
   return dane.length;
-}
 }
 function check_if_diff(){
   if(listaPytanChanged[selected_global]!=listaPytan[selected_global]){
@@ -129,31 +160,102 @@ function autosave(){
 }
 function save_changes(){
   let id = selected_global;
-  if(listaPytan[id].typ==="DOKONCZ"){
-      typ_zadania = DOKONCZ;
-      listaPytanChanged[id].id = typ_zadania.getElementsByClassName("id")[0].value;
-      listaPytanChanged[id].pkt = typ_zadania.getElementsByClassName("pkt")[0].value;
+      if(listaPytanChanged[id].typ!="ZLOZONE"){
+      listaPytanChanged[id].id = parseInt(document.getElementsByClassName("id")[0].value);
+      listaPytanChanged[id].pkt = document.getElementsByClassName("pkt")[0].value;
       listaPytanChanged[id].poprawna = get2DValues("poprawna_generated");
       listaPytanChanged[id].polecenie = get2DValues("polecenia_generated");
       listaPytanChanged[id].info = get2DValues("info_generated");
       listaPytanChanged[id].tresc = get2DValues("tresc_generated");
       listaPytanChanged[id].wyjasnienie = get2DValues("wyjasnienie_generated");
+      listaPytanChanged[id].zdj = get2DValues("zdj_generated");
+      listaPytanChanged[id].katID = document.getElementsByClassName("kategoria")[0].value;
+      listaPytanChanged[id].kat = document.getElementsByClassName("kategoria")[0].options[document.getElementsByClassName("kategoria")[0].selectedIndex].text;
+      if(listaPytanChanged[id].odp){
+      for(var i=0;i<listaPytanChanged[id].odp.length;i++){
+        let arr=[];
+        for(var j=0;j<listaPytanChanged[id].odp[i].length;j++){
+           arr.push(document.getElementsByClassName("odpowiedzi_generated"+i)[j].value);
+        }
+        listaPytanChanged[id].odp[i] = arr;
+      }
+      }
+      if(listaPytanChanged[id].odp_zdj){
+      for(var i=0;i<listaPytanChanged[id].odp_zdj.length;i++){
+        let arr=[];
+        for(var j=0;j<listaPytanChanged[id].odp_zdj[i].length;j++){
+            arr.push(document.getElementsByClassName("odpowiedzi_zdj_generated"+i)[j].value);
+        }
+        listaPytanChanged[id].odp_zdj[i] = arr;
+      }
   }
+}
+else{
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].id = parseInt(document.getElementsByClassName("id")[0].value);
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].pkt = document.getElementsByClassName("pkt")[0].value;
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].poprawna = get2DValues("poprawna_generated");
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].polecenie = get2DValues("polecenia_generated");
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].info = get2DValues("info_generated");
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].tresc = get2DValues("tresc_generated");
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].wyjasnienie = get2DValues("wyjasnienie_generated");
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].zdj = get2DValues("zdj_generated");
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].katID = document.getElementsByClassName("kategoria")[0].value;
+  listaPytanChanged[id].ListaZlozone[id_podpunktu_global].kat = document.getElementsByClassName("kategoria")[0].options[document.getElementsByClassName("kategoria")[0].selectedIndex].text;
+  if(listaPytanChanged[id].ListaZlozone[id_podpunktu_global].odp){
+  for(var i=0;i<listaPytanChanged[id].ListaZlozone[id_podpunktu_global].odp.length;i++){
+    let arr=[];
+    for(var j=0;j<listaPytanChanged[id].ListaZlozone[id_podpunktu_global].odp[i].length;j++){
+       arr.push(document.getElementsByClassName("odpowiedzi_generated"+i)[j].value);
+    }
+    listaPytanChanged[id].ListaZlozone[id_podpunktu_global].odp[i] = arr;
+  }
+  }
+  if(listaPytanChanged[id].ListaZlozone[id_podpunktu_global].odp_zdj){
+  for(var i=0;i<listaPytanChanged[id].ListaZlozone[id_podpunktu_global].odp_zdj.length;i++){
+    let arr=[];
+    for(var j=0;j<listaPytanChanged[id].ListaZlozone[id_podpunktu_global].odp_zdj[i].length;j++){
+        arr.push(document.getElementsByClassName("odpowiedzi_zdj_generated"+i)[j].value);
+    }
+    listaPytanChanged[id].ListaZlozone[id_podpunktu_global].odp_zdj[i] = arr;
+  }
+}
+}
   updateCode();
   check_if_diff();
+}
+function clean(obj) {
+  for (var propName in obj) {
+    if (obj[propName] === null || obj[propName] === undefined) {
+      delete obj[propName];
+    }
+  }
+  return obj
+}
+function validate(obj){
+
+}
+function usunZadanie(){
+  if(selected_global||selected_global==0){
+    console.log(selected_global);
+    listaPytanChanged.splice(selected_global,1);
+    listaPytan.splice(selected_global,1);
+    let code =  document.getElementById("output");
+    code.removeChild(code.children[selected_global])
+    selected_global=undefined;
+  }
 }
 function addZadanie(){
   console.log('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length-1)+' }');
   listaPytanChanged.push(new PytaniaNewFormat(JSON.parse('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length-1)+' }')));
   let code =  document.getElementById("output");
-  code.innerHTML+="<a href='#display_math' class='code_object' onclick='selectpytanie("+(listaPytanChanged.length-1)+")'>nowe zadanie</a>";
+  code.innerHTML+="<a href='#display_math'onclick='selectpytanie("+(listaPytanChanged.length-1)+")'><pre class='code_object'>nowe zadanie</pre></a>";
 }
 function reset_to_default(){
   if(listaPytan[selected_global]){
       listaPytanChanged[selected_global]=JSON.parse(JSON.stringify(listaPytan[selected_global]));
   }
   else{
-    listaPytanChanged[selected_global] = new PytaniaNewFormat();
+    listaPytanChanged[selected_global] = new PytaniaNewFormat(JSON.parse('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length-1)+' }'));
   }
   document.getElementById("resetbtn").disabled = true;
   document.getElementById("resetbtn").style.cursor = "no-drop";
@@ -161,181 +263,332 @@ function reset_to_default(){
   updateCode();
 }
 function addInfo(){
-  if(!listaPytanChanged[selected_global].info){
-    listaPytanChanged[selected_global].info = new Array();
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].info){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].info = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].info.push("");
+    read_podpunkt(id_podpunktu_global);
+      }else{
+    if(!listaPytanChanged[selected_global].info){
+      listaPytanChanged[selected_global].info = new Array();
+    }
+    listaPytanChanged[selected_global].info.push("");
+    selectpytanie(selected_global);
   }
-  listaPytanChanged[selected_global].info.push("");
-  selectpytanie(selected_global);
   autosave();
 }
 function addTresc(){
-  if(!listaPytanChanged[selected_global].tresc){
-    listaPytanChanged[selected_global].tresc = new Array();
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].tresc){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].tresc = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].tresc.push("");
+    read_podpunkt(id_podpunktu_global);
+    }else{
+    if(!listaPytanChanged[selected_global].tresc){
+      listaPytanChanged[selected_global].tresc = new Array();
+    }
+    listaPytanChanged[selected_global].tresc.push("");
+    selectpytanie(selected_global);
   }
-  listaPytanChanged[selected_global].tresc.push("");
-  selectpytanie(selected_global);
+  autosave();
+}
+function addZdj(){
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].zdj){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].zdj = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].zdj.push("");
+    read_podpunkt(id_podpunktu_global);
+  }else{
+    if(!listaPytanChanged[selected_global].zdj){
+      listaPytanChanged[selected_global].zdj = new Array();
+    }
+    listaPytanChanged[selected_global].zdj.push("");
+    selectpytanie(selected_global);
+  }
+  autosave();
+}
+function addOdp(scope){
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp[scope]){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp[scope] = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp[scope].push("");
+    read_podpunkt(id_podpunktu_global);
+  }else{
+    if(!listaPytanChanged[selected_global].odp[scope]){
+      listaPytanChanged[selected_global].odp[scope] = new Array();
+    }
+    listaPytanChanged[selected_global].odp[scope].push("");
+    selectpytanie(selected_global);
+  }
+  autosave();
+}
+function normalizuj(){
+  let code =  document.getElementById("output");
+  let checkbox = document.getElementById("prettyjson");
+  for(var i=0;i<listaPytanChanged.length;i++){
+    listaPytanChanged[i].id=i;
+    if(checkbox.checked){
+      code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(clean(listaPytanChanged[i])))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(clean(listaPytanChanged[i])))+"</pre></a>";
+    }else{
+      code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(clean(listaPytanChanged[i])))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(clean(listaPytanChanged[i]),undefined, 2))+"</pre></a>";
+    }
+  }
+}
+function addOdpScope(){
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp.push("");
+    read_podpunkt(id_podpunktu_global);
+  }else{
+    if(!listaPytanChanged[selected_global].odp){
+      listaPytanChanged[selected_global].odp = new Array();
+    }
+    listaPytanChanged[selected_global].odp.push(new Array);
+    selectpytanie(selected_global);
+  }
+  autosave();
+}
+function addOdpZdj(scope){
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp_zdj[scope]){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp_zdj[scope] = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp_zdj[scope].push("");
+    read_podpunkt(id_podpunktu_global);
+  }else{
+    if(!listaPytanChanged[selected_global].odp_zdj[scope]){
+      listaPytanChanged[selected_global].odp_zdj[scope] = new Array();
+    }
+    listaPytanChanged[selected_global].odp_zdj[scope].push("");
+    selectpytanie(selected_global);
+  }
+  autosave();
+}
+function addOdpZdjScope(){
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp_zdj){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp_zdj = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].odp_zdj.push("");
+    read_podpunkt(id_podpunktu_global);
+  }else{
+    if(!listaPytanChanged[selected_global].odp_zdj){
+      listaPytanChanged[selected_global].odp_zdj = new Array();
+    }
+    listaPytanChanged[selected_global].odp_zdj.push(new Array);
+    selectpytanie(selected_global);
+  }
   autosave();
 }
 function addPolecenie(){
-  if(!listaPytanChanged[selected_global].polecenie){
-    listaPytanChanged[selected_global].polecenie = new Array();
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].polecenie){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].polecenie = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].polecenie.push("");
+    read_podpunkt(id_podpunktu_global);
+  }else{
+    if(!listaPytanChanged[selected_global].polecenie){
+      listaPytanChanged[selected_global].polecenie = new Array();
+    }
+    listaPytanChanged[selected_global].polecenie.push("");
+    selectpytanie(selected_global);
   }
-  listaPytanChanged[selected_global].polecenie.push("");
-  selectpytanie(selected_global);
   autosave();
 }
+function addPoprawna(){
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].poprawna){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].poprawna = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].poprawna.push("");
+    read_podpunkt(id_podpunktu_global);
+  }else{
+    if(!listaPytanChanged[selected_global].poprawna){
+      listaPytanChanged[selected_global].poprawna = new Array();
+    }
+    listaPytanChanged[selected_global].poprawna.push("");
+    selectpytanie(selected_global);
+  } 
+  autosave();
+
+}
 function addWyjasnienie(){
-  if(!listaPytanChanged[selected_global].wyjasnienie){
-    listaPytanChanged[selected_global].wyjasnienie = new Array();
+  if(isPodpunkt){
+    if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].wyjasnienie){
+      listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].wyjasnienie = new Array();
+    }
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].wyjasnienie.push("");
+    read_podpunkt(id_podpunktu_global);
+  }else{
+    if(!listaPytanChanged[selected_global].wyjasnienie){
+      listaPytanChanged[selected_global].wyjasnienie = new Array();
+    }
+    listaPytanChanged[selected_global].wyjasnienie.push("");
+    selectpytanie(selected_global);
   }
-  listaPytanChanged[selected_global].wyjasnienie.push("");
-  selectpytanie(selected_global);
   autosave();
 }
 function get2DValues(classname){
   let arr = [];
   let btns = document.getElementsByClassName(classname);
   for(var i=0;i<btns.length;i++){
-    arr.push(btns[i].value);
+    if(btns[i].value!="")
+      arr.push(btns[i].value);
   }
+  if(arr.length==0) return undefined;
   return arr;
 }
+var id_podpunktu_global;
+var isPodpunkt;
 function read_podpunkt(id_podpunktu){
   if(listaPytan[selected_global].typ==="ZLOZONE"){
-    mainblock.innerHTML="";
-    document.getElementById("typ_zadania").value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].typ;
-    console.log(listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].typ);
-    switch(listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].typ){
-      case "DOKONCZ":{
-        mainblock.append(DOKONCZ);
-        typ_zadania = DOKONCZ;
-        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
-        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].pkt;
-        let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].poprawna,"poprawna_generated");
-        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].polecenie,"polecenia_generated");
-        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].info,"info_generated");
-        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].tresc,"tresc_generated");
-        let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].odp,"odpowiedzi_generated");
-        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].wyjasnienie,"wyjasnienie_generated");
+    id_podpunktu_global = id_podpunktu;
+    getZadanie(listaPytanChanged[selected_global].ListaZlozone[id_podpunktu]);
+    isPodpunkt=true;
+  }
+    
+}
+function getZadanie(pytanie){
+  update_code_object(selected_global);
+  mainblock.innerHTML="";
+  document.getElementById("typ_zadania").value = pytanie.typ;
+  let typ_zadania;
+  switch(pytanie.typ){
+    case "DOKONCZ":{
+      mainblock.append(DOKONCZ);
+      typ_zadania = DOKONCZ;
+      typ_zadania.getElementsByClassName("id")[0].value = pytanie.id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = pytanie.pkt;
+      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,pytanie.poprawna,"poprawna_generated");
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,pytanie.polecenie,"polecenia_generated");
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,pytanie.info,"info_generated");
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,pytanie.tresc,"tresc_generated");
+      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_odp(odpowiedzi,pytanie.odp,"odpowiedzi_generated");
+      let zdj = document.getElementsByClassName("zdj")[0]; generuj_przyciski2D(zdj,pytanie.zdj,"zdj_generated");
+      let odpowiedzi_zdj = document.getElementsByClassName("odpowiedzi_zdj")[0]; generuj_odp_zdj(odpowiedzi_zdj,pytanie.odp_zdj,"odpowiedzi_zdj_generated");
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,pytanie.wyjasnienie,"wyjasnienie_generated");
+      let kategoria = typ_zadania.getElementsByClassName("kategoria")[0];
+      kategoria.value = pytanie.katID;
+    }break;
+    case "PF":{
+      mainblock.append(PF);
+      typ_zadania = PF;
+      typ_zadania.getElementsByClassName("id")[0].value = pytanie.id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = pytanie.pkt;
+      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,pytanie.poprawna,"poprawna_generated");
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,pytanie.polecenie,"polecenia_generated");
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,pytanie.info,"info_generated");
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,pytanie.tresc,"tresc_generated");
+      let zdj = document.getElementsByClassName("zdj")[0]; generuj_przyciski2D(zdj,pytanie.zdj,"zdj_generated");
+      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_odp(odpowiedzi,pytanie.odp,"odpowiedzi_generated");
+      let odpowiedzi_zdj = document.getElementsByClassName("odpowiedzi_zdj")[0]; generuj_odp_zdj(odpowiedzi_zdj,pytanie.odp_zdj,"odpowiedzi_zdj_generated");
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,pytanie.wyjasnienie,"wyjasnienie_generated");
+      let kategoria = typ_zadania.getElementsByClassName("kategoria")[0];
+      kategoria.value = pytanie.katID;
+    }break;
+    case "OTWARTE":{
+      mainblock.append(OTWARTE);
+      typ_zadania = OTWARTE;
+      typ_zadania.getElementsByClassName("id")[0].value = pytanie.id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = pytanie.pkt;
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,pytanie.polecenie,"polecenia_generated");
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,pytanie.info,"info_generated");
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,pytanie.tresc,"tresc_generated");
+      let zdj = document.getElementsByClassName("zdj")[0]; generuj_przyciski2D(zdj,pytanie.zdj,"zdj_generated");
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,pytanie.wyjasnienie,"wyjasnienie_generated");
+      let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,pytanie.poprawna);
+      let kategoria = typ_zadania.getElementsByClassName("kategoria")[0];
+      kategoria.value = pytanie.katID;
+    }break;
+    case "DOPASUJ_NTO1":{
+      mainblock.append(DOPASUJ_NTO1);
+      typ_zadania = DOPASUJ_NTO1;
+      typ_zadania.getElementsByClassName("id")[0].value = pytanie.id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = pytanie.pkt;
+      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,pytanie.poprawna,"poprawna_generated");
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,pytanie.polecenie,"polecenia_generated");
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,pytanie.info,"info_generated");
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,pytanie.tresc,"tresc_generated");
+      let zdj = document.getElementsByClassName("zdj")[0]; generuj_przyciski2D(zdj,pytanie.zdj,"zdj_generated");
+      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_odp(odpowiedzi,pytanie.odp,"odpowiedzi_generated");
+      let odpowiedzi_zdj = document.getElementsByClassName("odpowiedzi_zdj")[0]; generuj_odp_zdj(odpowiedzi_zdj,pytanie.odp_zdj,"odpowiedzi_zdj_generated");
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,pytanie.wyjasnienie,"wyjasnienie_generated");
+      let kategoria = typ_zadania.getElementsByClassName("kategoria")[0];
+      kategoria.value = pytanie.katID;
+    }break;
+    case "DOPASUJ_1TO1":{
+      mainblock.append(DOPASUJ_1TO1);
+      typ_zadania = DOPASUJ_1TO1;
+      typ_zadania.getElementsByClassName("id")[0].value = pytanie.id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = pytanie.pkt;
+      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,pytanie.poprawna,"poprawna_generated");
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,pytanie.polecenie,"polecenia_generated");
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,pytanie.info,"info_generated");
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,pytanie.tresc,"tresc_generated");
+      let zdj = document.getElementsByClassName("zdj")[0]; generuj_przyciski2D(zdj,pytanie.zdj,"zdj_generated");
+      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_odp(odpowiedzi,pytanie.odp,"odpowiedzi_generated");
+      let odpowiedzi_zdj = document.getElementsByClassName("odpowiedzi_zdj")[0]; generuj_odp_zdj(odpowiedzi_zdj,pytanie.odp_zdj,"odpowiedzi_zdj_generated");
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,pytanie.wyjasnienie,"wyjasnienie_generated");
+      let kategoria = typ_zadania.getElementsByClassName("kategoria")[0];
+      kategoria.value = pytanie.katID;
+    }break;
+    case "DOPASUJ_TABELA":{
+      mainblock.append(DOPASUJ_TABELA);
+      typ_zadania = DOPASUJ_TABELA;
+      typ_zadania.getElementsByClassName("id")[0].value = pytanie.id;
+      typ_zadania.getElementsByClassName("pkt")[0].value = pytanie.pkt;
+      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,pytanie.poprawna,"poprawna_generated");
+      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,pytanie.polecenie,"polecenia_generated");
+      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,pytanie.info,"info_generated");
+      let zdj = document.getElementsByClassName("zdj")[0]; generuj_przyciski2D(zdj,pytanie.zdj,"zdj_generated");
+      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,pytanie.tresc,"tresc_generated");
+      let tabela = document.getElementsByClassName("tabela")[0]; 
+      let str="";
+      for(var i=0;i<pytanie.tabela.length;i++){
+        str+="<table>";
+        for(var j=0;j<pytanie.tabela[i].length;j++){
+          str+="<tr>";
+          for(var k=0;k<pytanie.tabela[i][j].length;k++){
+            str+="<td>"+pytanie.tabela[i][j][k]+"</td>";
+          }
+          str+="</tr>";
+        }
+        str+="</table>";
+      }
+      tabela.innerHTML=str;
+      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,pytanie.wyjasnienie,"wyjasnienie_generated");
+      let kategoria = typ_zadania.getElementsByClassName("kategoria")[0];
+      kategoria.value = pytanie.katID;
+    }break;
+    case "ZLOZONE":{
+      mainblock.append(ZLOZONE);
+      typ_zadania = ZLOZONE;
+      typ_zadania.getElementsByClassName("id")[0].value = pytanie.id;
+      typ_zadania.getElementsByClassName("podpkt")[0].value = pytanie.Podpunkty;
+      let podpunkty = document.getElementsByClassName("podpunkty")[0];
+      podpunkty.innerHTML="";
+      for(var i=0;i<pytanie.Podpunkty;i++){
+        podpunkty.innerHTML+="<button onclick='read_podpunkt("+i+")' class='bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 m-2 text-white font-semibold ml-2 block'>Podpunkt ["+i+"] ["+listaPytanChanged[selected_global].ListaZlozone[i].typ+"]</button>";
+      }
       }break;
-      case "PF":{
-        mainblock.append(PF);
-        typ_zadania = PF;
-        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
-        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].pkt;
-        let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].poprawna);
-        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].polecenie);
-        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].info);
-        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].tresc);
-        let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].odp);
-        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].wyjasnienie);
-      }break;
-      case "OTWARTE":{
-        mainblock.append(OTWARTE);
-        typ_zadania = OTWARTE;
-        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
-        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].pkt;
-        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].polecenie);
-        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].info);
-        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].tresc);
-        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].wyjasnienie);
-        let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].poprawna);
-      }break;
-      case "DOPASUJ_NTO1":{
-        mainblock.append(DOPASUJ_NTO1);
-        typ_zadania = DOPASUJ_NTO1;
-        typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
-        typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].pkt;
-        let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].polecenie);
-        let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].info);
-        let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].tresc);
-        let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].ListaZlozone[id_podpunktu].wyjasnienie);
-      }break;
-    }
   }
   show_div();
 }
 let mainblock=document.getElementById("main_div");
 function selectpytanie(id){
+  isPodpunkt=false;
   selected_global = id;
   console.log(listaPytanChanged[id]);
   update_code_object(id);
-  mainblock.innerHTML="";
   document.getElementById("typ_zadania").value = listaPytanChanged[id].typ;
-  let typ_zadania;
-  switch(listaPytanChanged[id].typ){
-    case "DOKONCZ":{
-      mainblock.append(DOKONCZ);
-      typ_zadania = DOKONCZ;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].id;
-      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].pkt;
-      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[id].poprawna,"poprawna_generated");
-      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].polecenie,"polecenia_generated");
-      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].info,"info_generated");
-      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].tresc,"tresc_generated");
-      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].odp,"odpowiedzi_generated");
-      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].wyjasnienie,"wyjasnienie_generated");
-    }break;
-    case "PF":{
-      mainblock.append(PF);
-      typ_zadania = PF;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].id;
-      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].pkt;
-      let poprawna = document.getElementsByClassName("poprawne")[0]; generuj_przyciski2D(poprawna,listaPytanChanged[id].poprawna);
-      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].polecenie);
-      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].info);
-      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].tresc);
-      if(!listaPytanChanged[id].hasInfo) info.classList.add("hidden");
-      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].odp);
-      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].wyjasnienie);
-    }break;
-    case "OTWARTE":{
-      mainblock.append(OTWARTE);
-      typ_zadania = OTWARTE;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].id;
-      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[id].pkt;
-      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[id].polecenie);
-      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[id].info);
-      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[id].tresc);
-      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[id].wyjasnienie);
-      let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,listaPytanChanged[id].poprawna);
-    }break;
-    case "DOPASUJ_NTO1":{
-      mainblock.append(DOPASUJ_NTO1);
-      typ_zadania = DOPASUJ_NTO1;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
-      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].pkt;
-      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].polecenie);
-      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].info);
-      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].tresc);
-      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].odp);
-      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].wyjasnienie);
-    }break;
-    case "DOPASUJ_1TO1":{
-      mainblock.append(DOPASUJ_1TO1);
-      typ_zadania = DOPASUJ_1TO1;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[selected_global].id;
-      typ_zadania.getElementsByClassName("pkt")[0].value = listaPytanChanged[selected_global].pkt;
-      let polecenia = document.getElementsByClassName("polecenia")[0]; generuj_przyciski2D(polecenia,listaPytanChanged[selected_global].polecenie);
-      let info = document.getElementsByClassName("info")[0]; generuj_przyciski2D(info,listaPytanChanged[selected_global].info);
-      let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,listaPytanChanged[selected_global].tresc);
-      let odpowiedzi = document.getElementsByClassName("odpowiedzi")[0]; generuj_przyciski3D(odpowiedzi,listaPytanChanged[id].odp);
-      let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,listaPytanChanged[selected_global].wyjasnienie);
-    
-    }
-    case "ZLOZONE":{
-      mainblock.append(ZLOZONE);
-      typ_zadania = ZLOZONE;
-      typ_zadania.getElementsByClassName("id")[0].value = listaPytanChanged[id].id;
-      typ_zadania.getElementsByClassName("podpkt")[0].value = listaPytanChanged[id].Podpunkty;
-      let podpunkty = document.getElementsByClassName("podpunkty")[0];
-      podpunkty.innerHTML="";
-      for(var i=0;i<listaPytanChanged[id].Podpunkty;i++){
-        podpunkty.innerHTML+="<button onclick='read_podpunkt("+i+")' class='bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 m-2 text-white font-semibold ml-2 block'>Podpunkt ["+i+"] ["+listaPytanChanged[id].ListaZlozone[i].typ+"]</button>";
-      }
-      }break;
-  }
-  show_div();
+  getZadanie(listaPytanChanged[id]);
 }
 function copy_to_clip(){
   if(isFetch){
@@ -365,11 +618,11 @@ function toggle_compact(){
     let code =  document.getElementById("output");
     if(checkbox.checked){
       for(var i=0;i<listaPytanChanged.length;i++){
-        code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(jsondata.API[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(jsondata.API[i]))+"</pre></a>";
+        code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(listaPytanChanged[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(listaPytanChanged[i]))+"</pre></a>";
       }
     }else{
       for(var i=0;i<listaPytanChanged.length;i++){
-        code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(jsondata.API[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(jsondata.API[i],undefined, 2))+"</pre></a>";
+        code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(listaPytanChanged[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(listaPytanChanged[i],undefined, 2))+"</pre></a>";
       }
     }
     if(selected_global) code.children[selected_global].classList.add("currently_selected");
@@ -381,9 +634,9 @@ function updateCode(){
   let i = selected_global;
   if(code.children.length<selected_global) code.innerHTML+="<a href='#display_math'><pre class='code_object' title='"+sanitize(JSON.stringify(listaPytanChanged[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(listaPytanChanged[i],undefined, 2))+"</pre></a>";
   if(checkbox.checked){
-      code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object currently_selected' title='"+sanitize(JSON.stringify(listaPytanChanged[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(listaPytanChanged[i]))+"</pre></a>";
+      code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object currently_selected' title='"+sanitize(JSON.stringify(clean(listaPytanChanged[i])))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(clean(listaPytanChanged[i])))+"</pre></a>";
     }else{
-      code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object currently_selected' title='"+sanitize(JSON.stringify(listaPytanChanged[i]))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(listaPytanChanged[i],undefined, 2))+"</pre></a>";
+      code.children[i].innerHTML = "<a href='#display_math'><pre class='code_object currently_selected' title='"+sanitize(JSON.stringify(clean(listaPytanChanged[i])))+"' onclick='selectpytanie("+i+")' >"+sanitize(JSON.stringify(clean(listaPytanChanged[i]),undefined, 2))+"</pre></a>";
     }
 }
 let selected_global;
@@ -470,7 +723,7 @@ class PytaniaNewFormat {
       if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp);  }
       if (pytanie.odp_zdj) this.odp_zdj = this.initS1D(pytanie.odp_zdj);
       if (pytanie.info) { this.info = this.initS1D(pytanie.info); }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.zdj) { this.zdj = pytanie.zdj;  }
       if (pytanie.translatable_info) { this.translatable_info = pytanie.translatable_info; }
     }
   
@@ -484,7 +737,7 @@ class PytaniaNewFormat {
       if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);  }
       if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
       if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp);  }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.zdj) { this.zdj = pytanie.zdj;  }
     }
   
     initializeOtwarte(pytanie) {
@@ -496,7 +749,7 @@ class PytaniaNewFormat {
       this.wyjasnienie = this.initS1D(pytanie.wyjasnienie);
       this.polecenie = this.initS1D(pytanie.polecenie);
       if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.zdj) { this.zdj = pytanie.zdj;  }
     }
   
     initializeDopasujNTON(pytanie) {
@@ -509,7 +762,7 @@ class PytaniaNewFormat {
       if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);  }
       if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
       if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp); }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.zdj) { this.zdj = pytanie.zdj;  }
     }
   
     initializeDopasujNTO1(pytanie) {
@@ -522,7 +775,7 @@ class PytaniaNewFormat {
       if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc); }
       if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
       if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp);  }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.zdj) { this.zdj = pytanie.zdj;  }
     }
   
     initializeDopasujTabela(pytanie) {
@@ -533,17 +786,17 @@ class PytaniaNewFormat {
       this.wyjasnienie = this.initS1D(pytanie.wyjasnienie);
       this.polecenie = this.initS1D(pytanie.polecenie);
 
-      this.Tabela = this.initS3D(pytanie.tabela);
+      this.tabela = this.initS3D(pytanie.tabela);
       if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);}
       if (pytanie.info) { this.info = this.initS1D(pytanie.info); }
       if (pytanie.odp) { this.odp = this.initS2D(pytanie.odp);  }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.zdj) { this.zdj = pytanie.zdj;  }
     }
   
     initializeZlozone(pytanie) {
       this.Podpunkty = pytanie.ilosc_podpunktow;
       if (pytanie.info) { this.info = this.initS1D(pytanie.info);  }
-      if (pytanie.zdj) { this.Zdj = pytanie.zdj;  }
+      if (pytanie.zdj) { this.zdj = pytanie.zdj;  }
       if (pytanie.tresc) { this.tresc = this.initS1D(pytanie.tresc);  }
   
       this.ListaZlozone = [];

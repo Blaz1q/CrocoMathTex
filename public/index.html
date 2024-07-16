@@ -26,17 +26,17 @@
             <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
             <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button onclick="addPoprawna()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
-            </div><label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
-                <option>-</option>
+            </div><label class="block m-2"><select onchange="autosave()" onclick="autosave()" class="kategoria cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                    <option value="1">Liczby Rzeczywiste</option><option value="2">Potęgi</option><option value="3">Pierwiastki</option><option value="4">Logarytmy</option><option value="5">Procenty</option><option value="6">Wielomiany</option></option><option value="7">Wzory skróconego mnożenia</option><option value="8">Równania i Nierówności</option><option value="9">Układ równań</option><option value="10">Równania kwadratowe</option><option value="11">Nierówności kwadratowe</option><option value="12">Równania wymierne</option><option value="13">Równania trzeciego i wyższego stopnia</option><option value="14">Obliczanie wartości funkcji</option><option value="15">Wykresy, wzory i współczynniki funkcji liniowej</option><option value="16">Wykresy funkcji kwadratowej</option><option value="17">Wzory i współczynniki funkcji kwadratowej</option><option value="18">Przekształcenia funkcji</option><option value="19">Funkcja wykładnicza</option><option value="20">Ciągi liczbowe</option><option value="21">Ciąg arytmetyczny</option><option value="22">Ciąg geometryczny</option><option value="23">Funkcje trygonometryczne</option><option value="24">Odczytywanie informacji z tablic trygonometrycznych</option><option value="25">Zależności między funkcjami trygonometrycznymi</option>
             </select> kategoria</label>
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button onclick="addPolecenie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="polecenia rounded-lg bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button onclick="addZdj()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
@@ -48,12 +48,12 @@
             <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button onclick="addOdpScope()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
-            <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi Zdj</h1><button onclick="addOdpZdjScope()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi_zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button onclick="addWyjasnienie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
@@ -66,34 +66,38 @@
             <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
             <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button onclick="addPoprawna()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
-            <label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md" onchange="show_div()">
-                <option>-</option>
+            <label class="block m-2"><select onchange="autosave()" onclick="autosave()" class="kategoria cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                <option value="1">Liczby Rzeczywiste</option><option value="2">Potęgi</option><option value="3">Pierwiastki</option><option value="4">Logarytmy</option><option value="5">Procenty</option><option value="6">Wielomiany</option</option><option value="7">Wzory skróconego mnożenia</option><option value="8">Równania i Nierówności</option><option value="9">Układ równań</option><option value="10">Równania kwadratowe</option><option value="11">Nierówności kwadratowe</option><option value="12">Równania wymierne</option><option value="13">Równania trzeciego i wyższego stopnia</option><option value="14">Obliczanie wartości funkcji</option><option value="15">Wykresy, wzory i współczynniki funkcji liniowej</option><option value="16">Wykresy funkcji kwadratowej</option><option value="17">Wzory i współczynniki funkcji kwadratowej</option><option value="18">Przekształcenia funkcji</option><option value="19">Funkcja wykładnicza</option><option value="20">Ciągi liczbowe</option><option value="21">Ciąg arytmetyczny</option><option value="22">Ciąg geometryczny</option><option value="23">Funkcje trygonometryczne</option><option value="24">Odczytywanie informacji z tablic trygonometrycznych</option><option value="25">Zależności między funkcjami trygonometrycznymi</option>
             </select> kategoria</label>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
-            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button onclick="addPolecenie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-lg bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button onclick="addZdj()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button onclick="addInfo()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button onclick="addTresc()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button onclick="addOdpScope()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi Zdj</h1><button onclick="addOdpZdjScope()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi_zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button onclick="addWyjasnienie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
         </div>
@@ -101,31 +105,31 @@
             <h1 class="text-white font-semibold m-2">OTWARTE</h1>
             <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
             <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
-            <label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
-                <option>-</option>
+            <label class="block m-2"><select onchange="autosave()" onclick="autosave()" class="kategoria cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                <option value="1">Liczby Rzeczywiste</option><option value="2">Potęgi</option><option value="3">Pierwiastki</option><option value="4">Logarytmy</option><option value="5">Procenty</option><option value="6">Wielomiany</option</option><option value="7">Wzory skróconego mnożenia</option><option value="8">Równania i Nierówności</option><option value="9">Układ równań</option><option value="10">Równania kwadratowe</option><option value="11">Nierówności kwadratowe</option><option value="12">Równania wymierne</option><option value="13">Równania trzeciego i wyższego stopnia</option><option value="14">Obliczanie wartości funkcji</option><option value="15">Wykresy, wzory i współczynniki funkcji liniowej</option><option value="16">Wykresy funkcji kwadratowej</option><option value="17">Wzory i współczynniki funkcji kwadratowej</option><option value="18">Przekształcenia funkcji</option><option value="19">Funkcja wykładnicza</option><option value="20">Ciągi liczbowe</option><option value="21">Ciąg arytmetyczny</option><option value="22">Ciąg geometryczny</option><option value="23">Funkcje trygonometryczne</option><option value="24">Odczytywanie informacji z tablic trygonometrycznych</option><option value="25">Zależności między funkcjami trygonometrycznymi</option>
             </select> kategoria</label>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
-            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button onclick="addPolecenie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-lg bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button onclick="addZdj()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button onclick="addInfo()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button onclick="addTresc()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button onclick="addWyjasnienie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie-Mini</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie-Mini</h1><button onclick="addPoprawna()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="wyjasnieniemini rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
         </div>
@@ -135,35 +139,38 @@
             <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
             <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button onclick="addPoprawna()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
-            
-            <label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
-                <option>-</option>
+            <label class="block m-2"><select onchange="autosave()" onclick="autosave()" class="kategoria cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                    <option value="1">Liczby Rzeczywiste</option><option value="2">Potęgi</option><option value="3">Pierwiastki</option><option value="4">Logarytmy</option><option value="5">Procenty</option><option value="6">Wielomiany</option></option><option value="7">Wzory skróconego mnożenia</option><option value="8">Równania i Nierówności</option><option value="9">Układ równań</option><option value="10">Równania kwadratowe</option><option value="11">Nierówności kwadratowe</option><option value="12">Równania wymierne</option><option value="13">Równania trzeciego i wyższego stopnia</option><option value="14">Obliczanie wartości funkcji</option><option value="15">Wykresy, wzory i współczynniki funkcji liniowej</option><option value="16">Wykresy funkcji kwadratowej</option><option value="17">Wzory i współczynniki funkcji kwadratowej</option><option value="18">Przekształcenia funkcji</option><option value="19">Funkcja wykładnicza</option><option value="20">Ciągi liczbowe</option><option value="21">Ciąg arytmetyczny</option><option value="22">Ciąg geometryczny</option><option value="23">Funkcje trygonometryczne</option><option value="24">Odczytywanie informacji z tablic trygonometrycznych</option><option value="25">Zależności między funkcjami trygonometrycznymi</option>
             </select> kategoria</label>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
-            <div class="polecenia rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button onclick="addPolecenie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-lg bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button onclick="addZdj()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button onclick="addInfo()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button onclick="addTresc()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button onclick="addOdpScope()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi Zdj</h1><button onclick="addOdpZdjScope()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi_zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button onclick="addWyjasnienie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
         </div>
@@ -172,12 +179,52 @@
             <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
             <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
             <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button onclick="addPoprawna()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div><label class="block m-2"><select onchange="autosave()" onclick="autosave()" class="kategoria cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                    <option value="1">Liczby Rzeczywiste</option><option value="2">Potęgi</option><option value="3">Pierwiastki</option><option value="4">Logarytmy</option><option value="5">Procenty</option><option value="6">Wielomiany</option></option><option value="7">Wzory skróconego mnożenia</option><option value="8">Równania i Nierówności</option><option value="9">Układ równań</option><option value="10">Równania kwadratowe</option><option value="11">Nierówności kwadratowe</option><option value="12">Równania wymierne</option><option value="13">Równania trzeciego i wyższego stopnia</option><option value="14">Obliczanie wartości funkcji</option><option value="15">Wykresy, wzory i współczynniki funkcji liniowej</option><option value="16">Wykresy funkcji kwadratowej</option><option value="17">Wzory i współczynniki funkcji kwadratowej</option><option value="18">Przekształcenia funkcji</option><option value="19">Funkcja wykładnicza</option><option value="20">Ciągi liczbowe</option><option value="21">Ciąg arytmetyczny</option><option value="22">Ciąg geometryczny</option><option value="23">Funkcje trygonometryczne</option><option value="24">Odczytywanie informacji z tablic trygonometrycznych</option><option value="25">Zależności między funkcjami trygonometrycznymi</option>
+            </select> kategoria</label>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button onclick="addPolecenie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="polecenia rounded-lg bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Zdj</h1><button onclick="addZdj()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Info</h1><button onclick="addInfo()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="info rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Treści</h1><button onclick="addTresc()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button onclick="addOdpScope()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi Zdj</h1><button onclick="addOdpZdjScope()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="odpowiedzi_zdj rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button onclick="addWyjasnienie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+            </div>
+        
+        </div>
+        <div id="DOPASUJ_TABELA" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
+            <h1 class="text-white font-semibold m-2">TABELA</h1>
+            <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl" disabled> id</label>
+            <label class="block m-2"><input type="number" class="pkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> pkt</label>
+            <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Poprawne</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="poprawne rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             
-            <label class="block m-2"><select class="cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
-                <option>-</option>
+            <label class="block m-2"><select onchange="autosave()" onclick="autosave()" class="kategoria cursor-pointer bg-slate-700/50  border border-slate-500/30 p-2 rounded-md">
+                <option value="1">Liczby Rzeczywiste</option><option value="2">Potęgi</option><option value="3">Pierwiastki</option><option value="4">Logarytmy</option><option value="5">Procenty</option><option value="6">Wielomiany</option</option><option value="7">Wzory skróconego mnożenia</option><option value="8">Równania i Nierówności</option><option value="9">Układ równań</option><option value="10">Równania kwadratowe</option><option value="11">Nierówności kwadratowe</option><option value="12">Równania wymierne</option><option value="13">Równania trzeciego i wyższego stopnia</option><option value="14">Obliczanie wartości funkcji</option><option value="15">Wykresy, wzory i współczynniki funkcji liniowej</option><option value="16">Wykresy funkcji kwadratowej</option><option value="17">Wzory i współczynniki funkcji kwadratowej</option><option value="18">Przekształcenia funkcji</option><option value="19">Funkcja wykładnicza</option><option value="20">Ciągi liczbowe</option><option value="21">Ciąg arytmetyczny</option><option value="22">Ciąg geometryczny</option><option value="23">Funkcje trygonometryczne</option><option value="24">Odczytywanie informacji z tablic trygonometrycznych</option><option value="25">Zależności między funkcjami trygonometrycznymi</option>
             </select> kategoria</label>
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Polecenia</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
@@ -196,23 +243,19 @@
             <div class="tresc rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Odpowiedzi</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
-            <div class="odpowiedzi rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
-            </div>
+                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Tabela</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
+            <div class="tabela rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             <div class="flex flex-col">
                 <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Wyjasnienie</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
             <div class="wyjasnienie rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
-        
         </div>
-        <div id="DOPASUJ_TABELA" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">taebla</div>
         <div id="ZLOZONE" class="shouldhide hidden rounded-md bg-slate-700/50 w-full border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2">
             <h1 class="text-white font-semibold m-2">ZŁOŻONE</h1>
             <label class="block m-2"><input type="number" class="id rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> id</label>
             <label class="block m-2"><input type="number" class="podpkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> liczba podpunktów</label>
             <div class="flex flex-col">
-                <div class="flex flex-row" style="align-items: center"><h1 class="text-white font-semibold">Podpunkty</h1><button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button></div>
-            <div class="podpunkty rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
+               <div class="podpunkty rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
             </div>
         </div>
         
@@ -238,7 +281,7 @@
         <button onclick="copy_to_clip()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold">kopiuj do schowka</button>
         <button id="resetbtn" onclick="reset_to_default()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 ml-2 text-white font-semibold disabled:text-slate-600 disabled:hover:bg-slate-700/50 cursor-no-drop" disabled>cofnij zmiany</button>
         <button onclick="addZadanie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">dodaj zadanie</button>
-        <button class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">usuń zadanie</button>
+        <button onclick="usunZadanie()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">usuń zadanie</button>
         <button onclick="save_changes()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">zapisz zmiany</button>
         
         <div id="output" class="rounded-md bg-slate-700/50  border border-slate-500/30 p-4 overflow-hidden max-w-7xl m-2"></div>

@@ -9,6 +9,15 @@ html,body{
     opacity: 0%;
     animation: fade_out 2s infinite;
 }
+table {
+	display: table;
+}
+table tr {
+	display: table-cell;
+}
+table tr td {
+	display: block;
+}
 .custom_bg{
     background-image: url("./imgs/croco_bg.png");
     background-size: cover;
