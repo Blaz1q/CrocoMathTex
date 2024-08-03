@@ -599,11 +599,10 @@ function selectpytanie(id){
 }
 function copy_to_clip(){
   if(isFetch){
-    let finalString="API[{";
+    let finalString="";
     for(var i=0;i<listaPytanChanged.length;i++){
       finalString+=JSON.stringify(listaPytanChanged[i]);
     }
-    finalString+="}]";
     navigator.clipboard.writeText(finalString);
   }
 }isFetch = true;
