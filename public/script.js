@@ -245,8 +245,8 @@ function usunZadanie(){
   }
 }
 function addZadanie(){
-  console.log('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length-1)+' }');
-  listaPytanChanged.push(new PytaniaNewFormat(JSON.parse('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length-1)+' }')));
+  console.log('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length)+' }');
+  listaPytanChanged.push(new PytaniaNewFormat(JSON.parse('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length)+' }')));
   let code =  document.getElementById("output");
   code.innerHTML+="<a href='#display_math'onclick='selectpytanie("+(listaPytanChanged.length-1)+")'><pre class='code_object'>nowe zadanie</pre></a>";
 }
@@ -277,6 +277,13 @@ function addInfo(){
     selectpytanie(selected_global);
   }
   autosave();
+}
+function addPodpunkt(){
+  if(!listaPytanChanged[selected_global].ListaZlozone){
+    listaPytanChanged[selected_global].ListaZlozone = new Array();
+  }
+  listaPytanChanged[selected_global].ListaZlozone.push(new PytaniaNewFormat(JSON.parse('{"typ":"'+document.getElementById("typ_zadania").value+'","id":'+(listaPytanChanged.length-1)+' }')));
+  selectpytanie(selected_global);
 }
 function addTresc(){
   if(isPodpunkt){
@@ -574,7 +581,7 @@ function getZadanie(pytanie){
       typ_zadania.getElementsByClassName("podpkt")[0].value = pytanie.Podpunkty;
       let podpunkty = document.getElementsByClassName("podpunkty")[0];
       podpunkty.innerHTML="";
-      for(var i=0;i<pytanie.Podpunkty;i++){
+      for(var i=0;i<pytanie.ListaZlozone.length;i++){
         podpunkty.innerHTML+="<button onclick='read_podpunkt("+i+")' class='bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 m-2 text-white font-semibold ml-2 block'>Podpunkt ["+i+"] ["+listaPytanChanged[selected_global].ListaZlozone[i].typ+"]</button>";
       }
       }break;
@@ -599,7 +606,7 @@ function copy_to_clip(){
     finalString+="}]";
     navigator.clipboard.writeText(finalString);
   }
-}isFetch = false;
+}isFetch = true;
 function sanitize(string) {
   const map = {
       '&': '&amp;',

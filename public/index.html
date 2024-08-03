@@ -9,7 +9,7 @@
     <script defer src="script.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
 </head>
-<body class="custom_bg bg-slate-900 text-slate-500 antialiased" onload="fetch_json();setUnloadTrigger()" onclick="fetch_json()">
+<body class="custom_bg bg-slate-900 text-slate-500 antialiased" onload="setUnloadTrigger()" onclick="fetch_json()">
     <nav class="flex flex-row max-w-7xl m-auto">
         <h1 class="logoanim text-white font-medium text-3xl">CrocoMathTex2.0</h1>
         <button onclick="toggle_przyciski()" class=" bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold">przyciski</button>
@@ -256,7 +256,7 @@
             <label class="block m-2"><input type="number" class="podpkt rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl"> liczba podpunktów</label>
             <div class="flex flex-col">
                <div class="podpunkty rounded-md bg-slate-700/50  border border-slate-500/30 p-2 overflow-hidden max-w-7xl m-2"></div>
-            </div>
+            </div><button onclick="addPodpunkt()" class="bg-slate-700/50  border border-slate-500/30 hover:bg-slate-500/40 active:bg-slate-600 rounded-full pl-6 pr-6 p-2 text-white font-semibold ml-2">+</button>
         </div>
         
         <div id="przyciski" class="flex flex-col">
