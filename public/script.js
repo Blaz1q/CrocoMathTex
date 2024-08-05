@@ -510,7 +510,7 @@ function getZadanie(pytanie){
       let tresc = document.getElementsByClassName("tresc")[0]; generuj_przyciski2D(tresc,pytanie.tresc,"tresc_generated");
       let zdj = document.getElementsByClassName("zdj")[0]; generuj_przyciski2D(zdj,pytanie.zdj,"zdj_generated");
       let wyjasnienie = document.getElementsByClassName("wyjasnienie")[0]; generuj_przyciski2D(wyjasnienie,pytanie.wyjasnienie,"wyjasnienie_generated");
-      let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,pytanie.poprawna);
+      let wyjasnieniemini = document.getElementsByClassName("wyjasnieniemini")[0]; generuj_przyciski2D(wyjasnieniemini,pytanie.poprawna,"poprawna_generated");
       let kategoria = typ_zadania.getElementsByClassName("kategoria")[0];
       kategoria.value = pytanie.katID;
     }break;
@@ -603,6 +603,7 @@ function copy_to_clip(){
     for(var i=0;i<listaPytanChanged.length;i++){
       finalString+=JSON.stringify(listaPytanChanged[i]);
     }
+    finalString+="";
     navigator.clipboard.writeText(finalString);
   }
 }isFetch = true;
