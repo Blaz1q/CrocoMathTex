@@ -162,14 +162,20 @@ function save_changes(){
   let id = selected_global;
       if(listaPytanChanged[id].typ!="ZLOZONE"){
       listaPytanChanged[id].id = parseInt(document.getElementsByClassName("id")[0].value);
-      listaPytanChanged[id].pkt = document.getElementsByClassName("pkt")[0].value;
-      listaPytanChanged[id].poprawna = get2DValues("poprawna_generated");
+      
+      listaPytanChanged[id].pkt = parseInt(document.getElementsByClassName("pkt")[0].value);
+      if(listaPytanChanged[id].typ=="OTWARTE"){
+        listaPytanChanged[id].poprawna = get2DValues("poprawna_generated");
+      }else{
+        listaPytanChanged[id].poprawna = get2DValuesINT("poprawna_generated");
+      }
+      
       listaPytanChanged[id].polecenie = get2DValues("polecenia_generated");
       listaPytanChanged[id].info = get2DValues("info_generated");
       listaPytanChanged[id].tresc = get2DValues("tresc_generated");
       listaPytanChanged[id].wyjasnienie = get2DValues("wyjasnienie_generated");
       listaPytanChanged[id].zdj = get2DValues("zdj_generated");
-      listaPytanChanged[id].katID = document.getElementsByClassName("kategoria")[0].value;
+      listaPytanChanged[id].katID = parseInt(document.getElementsByClassName("kategoria")[0].value);
       listaPytanChanged[id].kat = document.getElementsByClassName("kategoria")[0].options[document.getElementsByClassName("kategoria")[0].selectedIndex].text;
       if(listaPytanChanged[id].odp){
       for(var i=0;i<listaPytanChanged[id].odp.length;i++){
@@ -414,13 +420,13 @@ function addPoprawna(){
     if(!listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].poprawna){
       listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].poprawna = new Array();
     }
-    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].poprawna.push("");
+    listaPytanChanged[selected_global].ListaZlozone[id_podpunktu_global].poprawna.push(0);
     read_podpunkt(id_podpunktu_global);
   }else{
     if(!listaPytanChanged[selected_global].poprawna){
       listaPytanChanged[selected_global].poprawna = new Array();
     }
-    listaPytanChanged[selected_global].poprawna.push("");
+    listaPytanChanged[selected_global].poprawna.push(0);
     selectpytanie(selected_global);
   } 
   autosave();
@@ -448,6 +454,16 @@ function get2DValues(classname){
   for(var i=0;i<btns.length;i++){
     if(btns[i].value!="")
       arr.push(btns[i].value);
+  }
+  if(arr.length==0) return undefined;
+  return arr;
+}
+function get2DValuesINT(classname){
+  let arr = [];
+  let btns = document.getElementsByClassName(classname);
+  for(var i=0;i<btns.length;i++){
+    if(btns[i].value!="")
+      arr.push(parseInt(btns[i].value));
   }
   if(arr.length==0) return undefined;
   return arr;
